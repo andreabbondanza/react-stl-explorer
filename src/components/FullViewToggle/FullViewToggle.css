@@ -1,0 +1,19 @@
+.FullViewToggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  padding: 50px;
+  width: 5%;
+  height: 5%;
+
+  /* Kind of a hack, should probably refactor this */
+  font-size: 2vw;
+}
+
+.FullViewToggle svg {
+  cursor: pointer;
+}
