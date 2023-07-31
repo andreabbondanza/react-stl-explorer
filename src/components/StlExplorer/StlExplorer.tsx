@@ -7,8 +7,9 @@ import FullViewToggle from '../FullViewToggle';
 import { cubeFace } from '../ViewCube/ViewCube.types';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
+import { StlExplorerProps } from './StlExplorer.types';
 
-const StlExplorer: React.FC = () => {
+const StlExplorer: React.FC<StlExplorerProps> = ({ source }) => {
   const stlViewerRef = useRef(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const stlGeometry =
@@ -157,6 +158,14 @@ const StlExplorer: React.FC = () => {
     setIsDragAndDropVisible(false);
     setStlUrl(URL.createObjectURL(file));
   };
+  useEffect(() => {
+    if (typeof source === 'string') {
+      setIsDragAndDropVisible(false);
+      setStlUrl(source);
+    } else if (source instanceof File) {
+      setStlUrl(URL.createObjectURL(source));
+    }
+  }, [source]);
   return (
     <div
       className={'StlViewer'}
