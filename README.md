@@ -4,6 +4,8 @@
 
 An embeddable STL viewer for React applications.
 
+<img src="https://github.com/JMax45/react-stl-explorer/assets/36378436/eeba86cb-0a1d-48f1-a217-0f5fa7df998f" alt="viewer screenshot" width="600">
+
 ### Installation
 
 Install the library via npm:
