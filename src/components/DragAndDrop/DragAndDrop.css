@@ -31,3 +31,21 @@
   opacity: 100%;
   border: 2px dashed #1c6ea4;
 }
+
+.DragAndDropContainer div input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.DragAndDropContainer div input + label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}

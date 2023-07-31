@@ -153,6 +153,10 @@ const StlExplorer: React.FC = () => {
     }
   };
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const onFileSelect = (file: File) => {
+    setIsDragAndDropVisible(false);
+    setStlUrl(URL.createObjectURL(file));
+  };
   return (
     <div
       className={'StlViewer'}
@@ -167,7 +171,10 @@ const StlExplorer: React.FC = () => {
         onClick={fullViewToggleOnClick}
         isFullScreen={isFullScreen}
       />
-      <DragAndDrop isVisible={isDragAndDropVisible} />
+      <DragAndDrop
+        isVisible={isDragAndDropVisible}
+        onFileSelect={onFileSelect}
+      />
     </div>
   );
 };
