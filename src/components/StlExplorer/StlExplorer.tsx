@@ -20,6 +20,7 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
   const stlGeometry =
     useRef<THREE.BufferGeometry<THREE.NormalBufferAttributes> | null>(null);
   const [stlUrl, setStlUrl] = useState<string>();
+  const enableInteractionRef = useRef<boolean>(enableInteraction);
   useEffect(() => {
     if (!stlUrl) return setIsDragAndDropVisible(true);
     if (!stlViewerRef.current) return;
@@ -47,7 +48,6 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
     controls.dampingFactor = 0.1;
     controls.enableZoom = true;
     controls.autoRotateSpeed = 0.75;
-    controls.enabled = enableInteraction;
 
     var scene = new THREE.Scene();
     scene.add(new THREE.HemisphereLight(0xffffff, 1.5));
@@ -80,6 +80,8 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
       const animate = function () {
         setCamera(cameraRef.current!.clone());
         if (!isDisposed) requestAnimationFrame(animate);
+        if (enableInteractionRef.current !== null)
+          controls.enabled = enableInteractionRef.current;
         controls.update();
         renderer.render(scene, camera);
       };
@@ -110,7 +112,7 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
         handleFullscreenChange
       );
     };
-  }, [stlUrl, enableInteraction]);
+  }, [stlUrl]);
   const [camera, setCamera] = useState<THREE.PerspectiveCamera>();
   const onViewCubeClick = useCallback((face: cubeFace) => {
     const facePositions = {
@@ -173,6 +175,9 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
       setStlUrl(URL.createObjectURL(source));
     }
   }, [source]);
+  useEffect(() => {
+    enableInteractionRef.current = enableInteraction;
+  }, [enableInteraction]);
   return (
     <div
       className={'StlViewer'}
