@@ -12,6 +12,7 @@ import { StlExplorerProps } from './StlExplorer.types';
 const StlExplorer: React.FC<StlExplorerProps> = ({
   source,
   showViewCube = true,
+  allowFullscreen = true,
 }) => {
   const stlViewerRef = useRef(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -181,10 +182,12 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
       {showViewCube && (
         <ViewCube camera={cameraRef} onClick={onViewCubeClick} />
       )}
-      <FullViewToggle
-        onClick={fullViewToggleOnClick}
-        isFullScreen={isFullScreen}
-      />
+      {allowFullscreen && (
+        <FullViewToggle
+          onClick={fullViewToggleOnClick}
+          isFullScreen={isFullScreen}
+        />
+      )}
       <DragAndDrop
         isVisible={isDragAndDropVisible}
         onFileSelect={onFileSelect}
