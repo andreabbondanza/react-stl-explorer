@@ -13,6 +13,7 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
   source,
   showViewCube = true,
   allowFullscreen = true,
+  enableInteraction = true,
 }) => {
   const stlViewerRef = useRef(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -40,11 +41,13 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
       cameraRef.current!.updateProjectionMatrix();
     };
     window.addEventListener('resize', resizeListener, false);
-    var controls = new OrbitControls(cameraRef.current!, renderer.domElement);
+
+    const controls = new OrbitControls(cameraRef.current!, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.1;
     controls.enableZoom = true;
     controls.autoRotateSpeed = 0.75;
+    controls.enabled = enableInteraction;
 
     var scene = new THREE.Scene();
     scene.add(new THREE.HemisphereLight(0xffffff, 1.5));
@@ -107,7 +110,7 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
         handleFullscreenChange
       );
     };
-  }, [stlUrl]);
+  }, [stlUrl, enableInteraction]);
   const [camera, setCamera] = useState<THREE.PerspectiveCamera>();
   const onViewCubeClick = useCallback((face: cubeFace) => {
     const facePositions = {
