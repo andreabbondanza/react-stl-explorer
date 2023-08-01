@@ -9,7 +9,10 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
 import { StlExplorerProps } from './StlExplorer.types';
 
-const StlExplorer: React.FC<StlExplorerProps> = ({ source }) => {
+const StlExplorer: React.FC<StlExplorerProps> = ({
+  source,
+  showViewCube = true,
+}) => {
   const stlViewerRef = useRef(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const stlGeometry =
@@ -175,7 +178,9 @@ const StlExplorer: React.FC<StlExplorerProps> = ({ source }) => {
       onDragEnter={handleDragEnter}
     >
       <div ref={stlViewerRef} className={'StlViewerMain'} />
-      <ViewCube camera={cameraRef} onClick={onViewCubeClick} />
+      {showViewCube && (
+        <ViewCube camera={cameraRef} onClick={onViewCubeClick} />
+      )}
       <FullViewToggle
         onClick={fullViewToggleOnClick}
         isFullScreen={isFullScreen}

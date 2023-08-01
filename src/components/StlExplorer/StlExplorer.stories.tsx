@@ -14,4 +14,5 @@ type Story = StoryObj<typeof StlExplorer>;
 export const Primary: Story = (args) => <StlExplorer {...args} />;
 Primary.args = {
   source: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Flange.stl',
+  showViewCube: true,
 };
