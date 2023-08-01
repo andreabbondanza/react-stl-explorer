@@ -1,5 +1,5 @@
 import './ViewCube.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { cubeFace, ViewCubeProps } from './ViewCube.types';
@@ -71,7 +71,9 @@ const cubeFacesMap = {
 const ViewCube: React.FC<ViewCubeProps> = ({
   camera: cameraRef,
   onClick: onViewCubeClick,
+  enableInteraction = true,
 }) => {
+  const enableInteractionRef = useRef<boolean>(enableInteraction);
   useEffect(() => {
     const elem = document.getElementById('view-cube') as HTMLElement;
     let camera = new THREE.PerspectiveCamera(
@@ -106,6 +108,8 @@ const ViewCube: React.FC<ViewCubeProps> = ({
         camera.position.copy(cameraRef.current?.position);
         camera.rotation.copy(cameraRef.current?.rotation);
       }
+      if (enableInteractionRef.current !== null)
+        controls.enabled = enableInteractionRef.current;
       requestAnimationFrame(animate);
       controls.update();
       renderer.render(scene, camera);
@@ -134,7 +138,7 @@ const ViewCube: React.FC<ViewCubeProps> = ({
 
       const intersects = raycaster.intersectObjects(scene.children);
 
-      if (intersects.length > 0) {
+      if (intersects.length > 0 && enableInteractionRef.current) {
         onViewCubeClick(
           cubeFacesMap[
             intersects[0].faceIndex as keyof typeof cubeFacesMap
@@ -149,6 +153,9 @@ const ViewCube: React.FC<ViewCubeProps> = ({
       window.removeEventListener('click', clickListener);
     };
   }, [onViewCubeClick]);
+  useEffect(() => {
+    enableInteractionRef.current = enableInteraction;
+  }, [enableInteraction]);
   return <div id="view-cube" className={'ViewCube'}></div>;
 };
 

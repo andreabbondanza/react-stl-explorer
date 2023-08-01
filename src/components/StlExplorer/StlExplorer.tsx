@@ -188,7 +188,11 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
     >
       <div ref={stlViewerRef} className={'StlViewerMain'} />
       {showViewCube && (
-        <ViewCube camera={cameraRef} onClick={onViewCubeClick} />
+        <ViewCube
+          camera={cameraRef}
+          onClick={onViewCubeClick}
+          enableInteraction={enableInteraction}
+        />
       )}
       {allowFullscreen && (
         <FullViewToggle
