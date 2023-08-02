@@ -14,6 +14,7 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
   showViewCube = true,
   allowFullscreen = true,
   enableInteraction = true,
+  enableDragAndDrop = true,
 }) => {
   const stlViewerRef = useRef(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -132,6 +133,7 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
   const dropZoneRef = useRef(null);
   const handleDragEnter = (event: any) => {
     event.preventDefault();
+    if (!enableDragAndDrop) return;
     setIsDragAndDropVisible(true);
   };
   const handleDragOver = (event: any) => {
@@ -139,6 +141,7 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
   };
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+    if (!enableDragAndDrop) return;
     setIsDragAndDropVisible(false);
     const file = event.dataTransfer.files[0];
     if (file) setStlUrl(URL.createObjectURL(file));
@@ -200,10 +203,12 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
           isFullScreen={isFullScreen}
         />
       )}
-      <DragAndDrop
-        isVisible={isDragAndDropVisible}
-        onFileSelect={onFileSelect}
-      />
+      {enableDragAndDrop && (
+        <DragAndDrop
+          isVisible={isDragAndDropVisible}
+          onFileSelect={onFileSelect}
+        />
+      )}
     </div>
   );
 };

@@ -17,4 +17,5 @@ Primary.args = {
   showViewCube: true,
   allowFullscreen: true,
   enableInteraction: true,
+  enableDragAndDrop: true,
 };

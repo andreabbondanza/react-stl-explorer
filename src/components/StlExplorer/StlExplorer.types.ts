@@ -3,4 +3,5 @@ export interface StlExplorerProps {
   showViewCube?: boolean;
   allowFullscreen?: boolean;
   enableInteraction?: boolean;
+  enableDragAndDrop?: boolean;
 }
