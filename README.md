@@ -34,6 +34,16 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
+#### StlExplorer props
+
+| Prop Name         | Type             | Default | Description                                                                    |
+| ----------------- | ---------------- | ------- | ------------------------------------------------------------------------------ |
+| source            | `string \| File` |         | Specifies the source of the STL model to display in the viewer.                |
+| showViewCube      | `boolean`        | `true`  | Controls the visibility of the ViewCube, an interactive 3D navigation tool.    |
+| allowFullscreen   | `boolean`        | `true`  | Determines whether the viewer supports entering fullscreen mode.               |
+| enableInteraction | `boolean`        | `true`  | Controls user interactions with the viewer, such as rotation and zooming.      |
+| enableDragAndDrop | `boolean`        | `true`  | Allows users to drag and drop their own STL files into the viewer for loading. |
+
 ### Development
 
 This library uses the Storybook environment for development. To start working on react-stl-explorer, follow these steps:
