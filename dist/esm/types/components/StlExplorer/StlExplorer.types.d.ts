@@ -4,5 +4,5 @@ export interface StlExplorerProps {
     allowFullscreen?: boolean;
     enableInteraction?: boolean;
     enableDragAndDrop?: boolean;
-    meshColor?: string;
+    meshColor?: number;
 }

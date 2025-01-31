@@ -6,7 +6,7 @@ interface StlExplorerProps {
     allowFullscreen?: boolean;
     enableInteraction?: boolean;
     enableDragAndDrop?: boolean;
-    meshColor?: string;
+    meshColor?: number;
 }
 
 declare const StlExplorer: React.FC<StlExplorerProps>;
