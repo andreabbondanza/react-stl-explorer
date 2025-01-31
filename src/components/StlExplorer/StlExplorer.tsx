@@ -52,7 +52,29 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
     controls.autoRotateSpeed = 0.75;
 
     var scene = new THREE.Scene();
-    scene.add(new THREE.HemisphereLight(0xffffff, 1.5));
+    
+    // Remove the existing hemisphere light
+    // scene.add(new THREE.HemisphereLight(0xffffff, 1.5));
+    
+    // Add ambient light for base illumination
+    const ambientLight = new THREE.AmbientLight(0x404040, 1);
+    scene.add(ambientLight);
+
+    // Add directional lights from multiple angles
+    const lights = [
+      { position: [1, 1, 1], intensity: 0.8 },    // Top-front-right
+      { position: [-1, 1, 1], intensity: 0.8 },   // Top-front-left
+      { position: [1, -1, 1], intensity: 0.8 },   // Bottom-front-right
+      { position: [-1, -1, 1], intensity: 0.8 },  // Bottom-front-left
+      { position: [0, 0, 1], intensity: 1 },      // Front
+      { position: [0, 1, 0], intensity: 1 },      // Top
+    ];
+
+    lights.forEach(({ position, intensity }) => {
+      const light = new THREE.DirectionalLight(0xffffff, intensity);
+      light.position.set(position[0], position[1], position[2]);
+      scene.add(light);
+    });
 
     const loader = new STLLoader();
     loader.load(stlUrl, (geometry) => {
