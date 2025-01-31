@@ -15,6 +15,7 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
   allowFullscreen = true,
   enableInteraction = true,
   enableDragAndDrop = true,
+  meshColor = '#ffffff',
 }) => {
   const stlViewerRef = useRef(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -57,7 +58,7 @@ const StlExplorer: React.FC<StlExplorerProps> = ({
     loader.load(stlUrl, (geometry) => {
       stlGeometry.current = geometry;
       const material = new THREE.MeshPhongMaterial({
-        color: 0x808080,
+        color: meshColor ? meshColor : 0xffffff,
         specular: 100,
         shininess: 100,
       });
